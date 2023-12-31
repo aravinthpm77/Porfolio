@@ -27,13 +27,37 @@ export const navData = [
 ];
 
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Nav = () => {
-  return ( <nav>
+  const router=useRouter();
+  const pathname = router.pathname;
+  return ( 
+    <nav className='flex flex-col items-center xl:justify-center gap-y-4 fixed h-max bottom-0 mt-auto 
+    xl:right-[2%] z-50 top-0 w-full xl:w-12 xl:max-w-md xl:h-screen'>
     {}
-    <div>
+    <div className='flex w-full xl:flex-col items-center justify-between xl:justify-center 
+    gap-y-10 px-4 md:px-40 xl:px-0 h-[60px] xl:h-max  py-8 bg-white/10  backdrop-blur-sm text-2xl 
+    xl:text-xl xl:rounded-full' >
       {navData.map((link,index)=>{
-        return <Link href={link.path}>{link.icon}</Link>
+        return <Link 
+        className={`${link.path === pathname && 'text-accent'} relative flex items-center group hover:text-accent transition-all duration-200` } 
+        href={link.path}
+        key={index}
+        >
+          <div className='absolute pr-14 right-0 hidden xl:group-hover:flex'>
+            <div className='bg-white/0 realtive flex text-primary items-center p-[6px] rounded-[5px]'>
+              <div className='text-[12px] leading-none font-semibold capitalize'>
+              {link.name}
+              </div>
+              <div className='border-solid border-l-white/80 border-l-8 
+              border-y-transparent border-y-[6px] border-r-0 absolute right-12'></div>
+            </div>
+          </div>
+          
+          <div>{link.icon}</div>
+          
+          </Link>
       })}
     </div>
 
